@@ -23,6 +23,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/lists/**").permitAll()   // TEMPORARY
+                        .requestMatchers("/api/items/**").permitAll()   // TEMPORARY
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
