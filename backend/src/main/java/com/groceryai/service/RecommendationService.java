@@ -166,7 +166,6 @@ public class RecommendationService {
                                 )
                                 .build()
                 );
-
                 totalCost += price;
             }
         }
