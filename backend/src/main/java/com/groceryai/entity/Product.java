@@ -21,4 +21,7 @@ public class Product {
     private String category;
 
     private String brand;
+
+    private Integer priorityScore;
+    private Boolean essential;
 }
