@@ -10,6 +10,8 @@ import java.util.List;
 public class RecommendationResponse {
 
     private Double budget;
+
     private Double estimatedCost;
-    private List<String> recommendedProducts;
+
+    private List<RecommendedProductResponse> recommendedProducts;
 }
