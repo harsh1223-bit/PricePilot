@@ -33,6 +33,8 @@ public class ProductService {
                 .name(savedProduct.getName())
                 .category(savedProduct.getCategory())
                 .brand(savedProduct.getBrand())
+                .priorityScore(savedProduct.getPriorityScore())
+                .essential(savedProduct.getEssential())
                 .build();
     }
 
@@ -46,6 +48,8 @@ public class ProductService {
                                 .name(product.getName())
                                 .category(product.getCategory())
                                 .brand(product.getBrand())
+                                .priorityScore(product.getPriorityScore())
+                                .essential(product.getEssential())
                                 .build()
                 )
                 .collect(java.util.stream.Collectors.toList());

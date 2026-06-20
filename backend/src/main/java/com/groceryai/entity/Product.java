@@ -22,6 +22,7 @@ public class Product {
 
     private String brand;
 
+    @Column(name = "priority_score")
     private Integer priorityScore;
     private Boolean essential;
 }

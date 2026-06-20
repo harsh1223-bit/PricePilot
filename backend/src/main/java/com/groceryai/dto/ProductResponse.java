@@ -11,4 +11,7 @@ public class ProductResponse {
     private String name;
     private String category;
     private String brand;
+
+    private Integer priorityScore;
+    private Boolean essential;
 }
