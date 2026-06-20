@@ -7,7 +7,7 @@ import ShoppingLists from "./pages/ShoppingLists";
 import Recommendations from "./pages/Recommendations";
 import Optimization from "./pages/Optimization";
 import LivePrices from "./pages/LivePrices";
-
+import ShoppingListDetails from "./pages/ShoppingListDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +31,10 @@ function App() {
         <Route
           path="/optimization"
           element={<Optimization />}
+        />
+        <Route
+          path="/shopping-lists/:id"
+          element={<ShoppingListDetails />}
         />
 
         <Route

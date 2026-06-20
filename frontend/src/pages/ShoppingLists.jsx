@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 
 function ShoppingLists() {
@@ -6,11 +7,14 @@ function ShoppingLists() {
   const [lists, setLists] = useState([]);
   const [listName, setListName] = useState("");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchLists();
   }, []);
 
   const fetchLists = async () => {
+
     try {
 
       const response =
@@ -19,7 +23,9 @@ function ShoppingLists() {
       setLists(response.data);
 
     } catch (error) {
+
       console.error(error);
+
     }
   };
 
@@ -41,7 +47,9 @@ function ShoppingLists() {
       fetchLists();
 
     } catch (error) {
+
       console.error(error);
+
     }
   };
 
@@ -104,6 +112,24 @@ function ShoppingLists() {
             <p className="mt-2">
               List ID: {list.id}
             </p>
+
+            <button
+              onClick={() =>
+                navigate(
+                  `/shopping-lists/${list.id}`
+                )
+              }
+              className="
+                bg-green-600
+                text-white
+                px-4
+                py-2
+                rounded
+                mt-4
+              "
+            >
+              View List
+            </button>
 
           </div>
 
