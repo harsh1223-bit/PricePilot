@@ -6,6 +6,12 @@ import lombok.Data;
 public class RecommendationRequest {
 
     private Double budget;
+
     private Integer familySize;
+
     private Integer days;
+
+    private String diet;
+
+    private String goal;
 }
