@@ -10,8 +10,11 @@ import com.groceryai.repository.ProductPriceRepository;
 import com.groceryai.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.groceryai.entity.ShoppingListItem;
 
+import com.groceryai.repository.ShoppingListItemRepository;
 import java.util.*;
+
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +22,8 @@ public class OptimizationService {
 
     private final ProductRepository productRepository;
     private final ProductPriceRepository productPriceRepository;
-
+    private final ShoppingListItemRepository shoppingListItemRepository;
+    
     public FinalOptimizationResponse optimize() {
 
         List<Product> products = productRepository.findAll();
@@ -258,4 +262,65 @@ public class OptimizationService {
                 )
                 .build();
     }
+    public FinalOptimizationResponse optimizeShoppingList(
+        Long shoppingListId
+) {
+
+    List<ShoppingListItem> items =
+            shoppingListItemRepository
+                    .findByShoppingListId(shoppingListId);
+
+    if (items.isEmpty()) {
+        throw new RuntimeException(
+                "Shopping list is empty"
+        );
+    }
+
+    List<ProductRecommendationResponse> recommendations =
+            new ArrayList<>();
+
+    double multiStoreCost = 0.0;
+
+    for (ShoppingListItem item : items) {
+
+        Product product = item.getProduct();
+
+        ProductPrice cheapestPrice =
+                productPriceRepository
+                        .findFirstByProductIdOrderByPriceAsc(
+                                product.getId()
+                        )
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "No prices found for "
+                                                + product.getName()
+                                ));
+
+        recommendations.add(
+                ProductRecommendationResponse.builder()
+                        .productName(product.getName())
+                        .storeName(
+                                cheapestPrice.getStore().getName()
+                        )
+                        .price(
+                                cheapestPrice.getPrice()
+                                        * item.getQuantity()
+                        )
+                        .build()
+        );
+
+        multiStoreCost +=
+                cheapestPrice.getPrice()
+                        * item.getQuantity();
+    }
+
+    return FinalOptimizationResponse.builder()
+            .singleStorePlan(null)
+            .singleStoreFinalCost(null)
+            .multiStoreCost(multiStoreCost)
+            .multiStoreFinalCost(multiStoreCost)
+            .savings(0.0)
+            .recommendations(recommendations)
+            .build();
+}
 }

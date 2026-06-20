@@ -16,4 +16,12 @@ public class OptimizationController {
     public FinalOptimizationResponse optimize() {
         return optimizationService.optimize();
     }
+
+    @GetMapping("/list/{listId}")
+    public FinalOptimizationResponse optimizeShoppingList(
+            @PathVariable Long listId
+    ) {
+        return optimizationService
+                .optimizeShoppingList(listId);
+    }
 }
