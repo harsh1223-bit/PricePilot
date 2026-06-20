@@ -37,6 +37,7 @@ public class SecurityConfig {
     ) throws Exception {
 
         http
+                .cors(cors -> cors.disable())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
@@ -47,7 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/products/**").permitAll() // TEMP
                         .requestMatchers("/api/live-prices/**").permitAll()
-
+                        .requestMatchers("/api/shopping-lists/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(
