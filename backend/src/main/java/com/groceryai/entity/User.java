@@ -1,8 +1,9 @@
 package com.groceryai.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,10 +25,10 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
+
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
